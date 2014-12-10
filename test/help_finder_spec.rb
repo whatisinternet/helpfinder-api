@@ -1,6 +1,4 @@
-ENV['RACK_ENV'] = 'test'
-require 'minitest/autorun'
-require 'rack/test'
+require File.expand_path '../test_helper.rb', __FILE__
 require 'json'
 require_relative '../help_finder.rb'
 require './models/therapist'
