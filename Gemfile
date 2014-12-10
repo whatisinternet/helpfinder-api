@@ -6,3 +6,4 @@ gem 'activerecord'
 gem 'sinatra-activerecord'
 gem 'pg'
 gem 'geocoder'
+gem "codeclimate-test-reporter", group: :test, require: nil
