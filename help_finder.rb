@@ -17,16 +17,19 @@ get '/v1/find_help/:postal_code&:distance&:units' do
 		params[:units].to_s).refine.to_json
 end
 
-get '/v1/everyone' do
+get '/v1/everyone/:key' do
 	halt 404 if params[:key].nil?
 	error 404 unless valid_key?(params[:key])
 	Therapist.new.return_all.refine.to_json
 end
 
 post '/v1/therapist/create' do
-	halt 404 if params[:key].nil?
-	error 404 unless valid_key?(params[:key])
-	therapist = Therapist.new(params)
+	request.body.rewind
+    request_payload = JSON.parse request.body.read
+    puts request_payload[1]
+	halt 404 if request_payload[0]['key'].to_s.nil?
+	error 404 unless valid_key?(request_payload[0]['key'].to_s)
+	therapist = Therapist.new(request_payload[1])
 	if therapist.save
 		'successfully created!'.to_json
 	else
@@ -36,9 +39,11 @@ post '/v1/therapist/create' do
 end
 
 post '/v1/therapist/delete' do
-	halt 404 if params[:key].nil?
-	error 404 unless valid_key?(params[:key])
-	therapist = Therapist.find_by_name(params[:name])
+	request.body.rewind
+    request_payload = JSON.parse request.body.read
+	halt 404 if request_payload[0]['key'].nil?
+	error 404 unless valid_key?(request_payload[0]['key'].to_s)
+	therapist = Therapist.find_by_name(request_payload[1]['name'])
 	if therapist.destroy
 		'successfully deleted!'.to_json
 	else
@@ -52,8 +57,8 @@ not_found do
 end
 
 helpers do
-	def valid_key?
-		return false if params[:key].nil?
-		ApiAcceptedProgram.valid_key?(key.to_s)
+	def valid_key?(key)
+		return false if key.nil?
+		ApiAcceptedProgram.new.validate_key?(key.to_s)
 	end
 end
