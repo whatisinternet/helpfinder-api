@@ -5,6 +5,8 @@ Geocoder::Railtie.insert
 class Therapist < ActiveRecord::Base
 	extend Geocoder::Model::ActiveRecord
 	geocoded_by :postal_code
+	after_validation :geocode
+	before_save :geocode
 
 	def find_therapists(postal_code, distance, units)
 		return [] if postal_code.nil?
