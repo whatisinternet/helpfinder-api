@@ -6,6 +6,7 @@ class ApiAcceptedProgram < ActiveRecord::Base
 		return false if key.nil?
 		sha256 = Digest::SHA256.new
 		sha256.update key.to_s
+		puts "\n" +  sha256.hexdigest.to_s + "\n"
 		user = ApiAcceptedProgram.find_by_key(sha256.hexdigest.to_s)
 		if user.nil?
 			return false

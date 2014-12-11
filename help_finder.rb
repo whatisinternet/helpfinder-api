@@ -26,7 +26,7 @@ end
 post '/v1/therapist/create' do
 	request.body.rewind
     request_payload = JSON.parse request.body.read
-    puts request_payload[1]
+    puts request_payload[0]['key']
 	halt 404 if request_payload[0]['key'].to_s.nil?
 	error 404 unless valid_key?(request_payload[0]['key'].to_s)
 	therapist = Therapist.new(request_payload[1])
