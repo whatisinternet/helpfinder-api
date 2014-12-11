@@ -28,7 +28,7 @@ describe "Therapist" do
 
 	it "should return local therapists" do
 		check_therapists = Therapist.new.find_therapists('90210',1000,'km').refine.to_json
-		therapists = [{id: 1, name: "Test Therapist", location: "123 Fake St. NY NY 90210", postal_code: "90210", phone_number: "555-555-5555", fax_number: "555-555-5555", email: "test@therapist.com", website: "api.helpfinder.com", latitude: 34.1030032, longitude: -118.4104684, distance: 1.30843375858857e-12, bearing:"270.00000002055"}]
+		therapists = [{id: 1, name: "Test Therapist", location: "123 Fake St. NY NY 90210", postal_code: "90210", phone_number: "555-555-5555", fax_number: "555-555-5555", email: "test@therapist.com", website: "api.helpfinder.com", latitude: 34.1030032, longitude: -118.4104684, distance: 0.0, bearing:"0.0"}]
 		check_therapists.must_equal therapists.to_json
 	end
 
