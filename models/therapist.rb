@@ -15,7 +15,7 @@ class Therapist < ActiveRecord::Base
 	end
 
 	def find_by_name(name)
-		Therapist.where(name: name.to_s)[0]
+		Therapist.where(name: name.to_s)
 	end
 
 	def self.refine
