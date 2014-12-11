@@ -4,10 +4,14 @@ require 'sinatra/activerecord'
 require './config/environments'
 require './models/therapist'
 require './models/apiacceptedprogram'
+require 'geocoder'
+require "geocoder/railtie"
+Geocoder::Railtie.insert
 
 require 'json'
 
 enable :sessions
+register Sinatra::ActiveRecordExtension
 
 get '/v1/find_help/:postal_code&:distance&:units' do
 	return 'fail' if params[:postal_code].nil?
@@ -21,7 +25,7 @@ end
 get '/v1/everyone/:key' do
 	halt 404 if params[:key].nil?
 	error 404 unless valid_key?(params[:key])
-	Therapist.new.return_all.refine.to_json
+	Therapist.new.return_all.to_json
 end
 
 post '/v1/therapist/create' do
@@ -30,6 +34,10 @@ post '/v1/therapist/create' do
 	halt 404 if request_payload[0]['key'].to_s.nil?
 	error 404 unless valid_key?(request_payload[0]['key'].to_s)
 	therapist = Therapist.new(request_payload[1])
+	#local = Geocoder.search(therapist.location)
+	#puts local.first.coordinates
+	#therapist.latitude  = local.first.latitude
+	#therapist.longitude = local.first.longitude
 	if therapist.save
 		'successfully created!'.to_json
 	else
