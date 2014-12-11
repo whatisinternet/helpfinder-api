@@ -1,2 +1,2 @@
-require './app'
+require './help_finder'
 run Sinatra::Application
