@@ -4,7 +4,7 @@ Help Finder API
 
 ## An API for the help finder project
 
-The help finder project aims to provide mental health resources and counsellor locations to those in need. This specific project provides a API back-end to store therapists, and counselling centres near you. The API provides a public facing JSON endpoint in version 1. With version 1 a user can specify their postal code or zip as well as a distance in either kilometres or miles and the API will return a JSON package of the closest resources.
+The help finder project aims to provide mental health resources and locations to those in need. This specific project provides a API back-end to store therapists, and counselling centres near you. The API provides a public facing JSON endpoint in version 1. With version 1 a user can specify their postal code or zip as well as a distance in either kilometres or miles and the API will return a JSON package of the closest resources.
 
 ## Contributing
 
