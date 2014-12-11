@@ -13,6 +13,10 @@ require 'json'
 enable :sessions
 register Sinatra::ActiveRecordExtension
 
+options '/*' do
+  response["Access-Control-Allow-Headers"] = "origin, x-requested-with, content-type"
+end
+
 get '/v1/find_help/:postal_code&:distance&:units' do
 	return 'fail' if params[:postal_code].nil?
 	content_type :json
@@ -25,6 +29,7 @@ end
 get '/v1/everyone/:key' do
 	halt 404 if params[:key].nil?
 	error 404 unless valid_key?(params[:key])
+	content_type :json
 	Therapist.new.return_all.refine.to_json
 end
 
