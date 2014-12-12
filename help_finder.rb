@@ -17,7 +17,7 @@ options '/*' do
   response["Access-Control-Allow-Headers"] = "origin, x-requested-with, content-type"
 end
 
-get 'api/1/find_help/:postal_code&:distance&:units' do
+get '/api/1/find_help/:postal_code&:distance&:units' do
 	return 'fail' if params[:postal_code].nil?
 	content_type :json
 	Therapist.new.find_therapists(
@@ -26,14 +26,14 @@ get 'api/1/find_help/:postal_code&:distance&:units' do
 		params[:units].to_s).refine.to_json
 end
 
-get 'api/1/everyone/:key' do
+get '/api/1/everyone/:key' do
 	halt 404 if params[:key].nil?
 	error 404 unless valid_key?(params[:key])
 	content_type :json
 	Therapist.new.return_all.refine.to_json
 end
 
-post 'api/1/therapist/create' do
+post '/api/1/therapist/create' do
 	request.body.rewind
     request_payload = JSON.parse request.body.read
 	halt 404 if request_payload[0]['key'].to_s.nil?
@@ -47,7 +47,7 @@ post 'api/1/therapist/create' do
 
 end
 
-post 'api/1/therapist/delete' do
+post '/api/1/therapist/delete' do
 	request.body.rewind
     request_payload = JSON.parse request.body.read
 	halt 404 if request_payload[0]['key'].nil?
