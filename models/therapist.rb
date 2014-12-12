@@ -17,10 +17,6 @@ class Therapist < ActiveRecord::Base
 		
 	end
 
-	def return_all
-		Therapist.all
-	end
-
 	def find_by_name(name)
 		Therapist.where(name: name.to_s)
 	end

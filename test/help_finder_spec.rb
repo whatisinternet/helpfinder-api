@@ -18,27 +18,14 @@ describe "Help Finder" do
 	end
 
 	it "should return a json package for local therapists" do
-		get 'api/1/find_help/90210&20&km'
+		get 'api/1/find_help/90210/20/km'
 		therapists = [{id: 1, name: "Test Therapist", location: "123 Fake St. NY NY 90210", postal_code: "90210", phone_number: "555-555-5555", fax_number: "555-555-5555", email: "test@therapist.com", website: "api.helpfinder.com", latitude: 34.1030032, longitude: -118.4104684, distance: 0.0, bearing:"0.0"}]
 		last_response.body.must_equal therapists.to_json
 
 	end
 
-	it "should return all of the therapists" do
-		
-		get "api/1/everyone/#{key.to_s}"
-		everyone = Therapist.all.select(
-			:name, 
-			:location,
-			:phone_number,
-			:fax_number,
-			:email,
-			:website).distinct.to_json
-		last_response.body.must_equal everyone
-	end
-
 	it "should return json" do
-		get 'api/1/find_help/test&0&km'
+		get 'api/1/find_help/test/0/km'
 		last_response.headers['Content-Type'].must_equal 'application/json'
 	end
 
