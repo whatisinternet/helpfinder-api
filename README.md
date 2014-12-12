@@ -6,6 +6,9 @@ Help Finder API
 
 The help finder project aims to provide mental health resources and locations to those in need. This specific project provides a API back-end to store therapists, and counselling centres near you. The API provides a public facing JSON endpoint in version 1. With version 1 a user can specify their postal code or zip as well as a distance in either kilometres or miles and the API will return a JSON package of the closest resources.
 
+## Notes
+* This API is a work in progress. Breaking changes may be introduced without warning.
+
 ## Contributing
 
 1. Fork it ( https://github.com/whatisinternet/helpfinderAPI/fork )
@@ -14,6 +17,8 @@ The help finder project aims to provide mental health resources and locations to
 4. Make sure your tests pass.
 5. Push to the branch (`git push origin my-new-feature`)
 6. Create a new Pull Request
+
+##Copyright etc.
 
 Copyright (c) 2014 Whatisinternet
 
