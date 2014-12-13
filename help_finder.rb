@@ -5,14 +5,9 @@ require 'sinatra/activerecord'
 require './config/environments'
 require_relative "helpers.rb"
 
-register Sinatra::ActiveRecordExtension
-
 class HelpFinder < Sinatra::Base
+	register Sinatra::ActiveRecordExtension
 	helpers Helpers
-
-	options '/*' do
-	  response["Access-Control-Allow-Headers"] = "origin, x-requested-with, content-type"
-	end
 
 	get '/api/1/find_help/:postal_code/:distance/:units' do
 		return 'fail' if params[:postal_code].nil?
@@ -36,5 +31,5 @@ class HelpFinder < Sinatra::Base
 	  status 404
 	  'I can\'t let you do that dave'.to_json
 	end
-	run! if __FILE__ == $0
+
 end
