@@ -6,7 +6,7 @@ require './models/therapist'
 include Rack::Test::Methods
  
 def app
-  Sinatra::Application
+  HelpFinder
 end
 
 describe "Help Finder" do
