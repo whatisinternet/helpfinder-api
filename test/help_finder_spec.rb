@@ -34,6 +34,12 @@ describe "Help Finder" do
 		last_response.body.must_equal 'successfully created!'.to_json
 	end
 
+	it "should not create a new therapist" do
+		therapists = [{key: 'fail_key'}, {name: "Test", location: "123 Fake St. NY NY 90210", postal_code: "90210", phone_number: "555-555-5555", fax_number: "555-555-5555", email: "test@therapist.com", website: "api.helpfinder.com", latitude: 34.1030032, longitude: -118.4104684}].to_json
+		post('/api/1/therapist/create', therapists ,{ "CONTENT_TYPE" => "application/json" })
+		last_response.body.must_equal 'I can\'t let you do that dave'.to_json
+	end
+
 	it "should delete a therapist" do
 		temp = Therapist.new(name: 'Test',
 			location: '123 Fake St. NY NY 90210',
@@ -49,6 +55,13 @@ describe "Help Finder" do
 		post('/api/1/therapist/delete', therapists ,{ "CONTENT_TYPE" => "application/json" })
 		last_response.body.must_equal 'successfully deleted!'.to_json
 		temp.destroy unless temp.nil?
+	end
+
+
+	it "should not delete a therapist" do
+		therapists = [{key: 'fail_key'}, {name: "Test", location: "123 Fake St. NY NY 90210", postal_code: "90210", phone_number: "555-555-5555", fax_number: "555-555-5555", email: "test@therapist.com", website: "api.helpfinder.com", latitude: 34.1030032, longitude: -118.4104684}].to_json
+		post('/api/1/therapist/create', therapists ,{ "CONTENT_TYPE" => "application/json" })
+		last_response.body.must_equal 'I can\'t let you do that dave'.to_json
 	end
 
 end
