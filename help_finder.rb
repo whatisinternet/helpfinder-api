@@ -3,7 +3,7 @@ require 'sinatra'
 require 'sinatra/activerecord'
 require './config/environments'
 require './models/therapist'
-require './models/apiacceptedprogram'
+require './models/api_user'
 require 'geocoder'
 require "geocoder/railtie"
 Geocoder::Railtie.insert
@@ -61,6 +61,6 @@ end
 helpers do
 	def valid_key?(key)
 		return false if key.nil?
-		ApiAcceptedProgram.new.validate_key(key.to_s)
+		ApiUser.new.validate_key(key.to_s)
 	end
 end

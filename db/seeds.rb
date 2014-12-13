@@ -12,6 +12,6 @@ Therapist.create(name: 'Test Therapist',
 			latitude: '34.103003200000000000',
 			longitude: '-118.410468400000010000')
 
-ApiAcceptedProgram.create(app_name: 'test_program',
+ApiUser.create(app_name: 'test_program',
 						  key: "e35ed82c065c641eb2987acbd21ffb80508368d7cebdc509643f40c965172999",
 						  expires: '2018-01-01')

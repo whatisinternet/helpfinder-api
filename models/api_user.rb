@@ -1,7 +1,7 @@
 require 'digest'
 require 'digest/sha2'
 
-class ApiAcceptedProgram < ActiveRecord::Base
+class ApiUser < ActiveRecord::Base
 	def validate_key(key)
 		return false if key.nil?
 		user = get_user(key)
@@ -21,7 +21,7 @@ class ApiAcceptedProgram < ActiveRecord::Base
 	end
 
 	def get_user(key)
-		ApiAcceptedProgram.find_by_key(hash_key(key))
+		ApiUser.find_by_key(hash_key(key))
 	end
 
 	def hash_key(key)
