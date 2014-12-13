@@ -2,7 +2,7 @@ require './models/therapist'
 require './models/api_user'
 require 'json'
 
-module Helpers
+module ApiHelpers
 		def valid_key?(key)
 			return false if key.nil?
 			ApiUser.new.validate_key(key.to_s)
@@ -28,8 +28,6 @@ module Helpers
 			therapist = Therapist.new(therapist_data)
 			if therapist.save
 				'successfully created!'.to_json
-			else
-				'failed to create!'.to_json
 			end
 		end
 
@@ -37,8 +35,6 @@ module Helpers
 			therapist = Therapist.find_by_name(therapist_name)
 			if therapist.destroy
 				'successfully deleted!'.to_json
-			else
-				'failed to deleted!'.to_json
 			end
 		end
 	end
