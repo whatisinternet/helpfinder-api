@@ -4,11 +4,10 @@ require "sinatra/base"
 require 'sinatra/activerecord'
 require './config/environments'
 require_relative "./helpers.rb"
-
+register Sinatra::ActiveRecordExtension
 
 class HelpFinder < Sinatra::Base
 	include ApiHelpers
-	register Sinatra::ActiveRecordExtension
 
 	get '/api/1/find_help/:postal_code/:distance/:units' do
 		return 'fail' if params[:postal_code].nil?
