@@ -19,38 +19,20 @@ end
 
 get '/api/1/find_help/:postal_code/:distance/:units' do
 	return 'fail' if params[:postal_code].nil?
-	content_type :json
-	Therapist.new.find_therapists(
-		params[:postal_code].to_s, 
-		params[:distance].to_s, 
-		params[:units].to_s).refine.to_json
+	get_therapist_postal(params[:postal_code].to_s, 
+						 params[:distance].to_s, 
+						 params[:units].to_s)
+
 end
 
 post '/api/1/therapist/create' do
-	request.body.rewind
-    request_payload = JSON.parse request.body.read
-	halt 404 if request_payload[0]['key'].to_s.nil?
-	error 404 unless valid_key?(request_payload[0]['key'].to_s)
-	therapist = Therapist.new(request_payload[1])
-	if therapist.save
-		'successfully created!'.to_json
-	else
-		'failed to create!'.to_json
-	end
-
+	request_payload = parse_json(request)
+	create_therapist(request_payload[1])
 end
 
 post '/api/1/therapist/delete' do
-	request.body.rewind
-    request_payload = JSON.parse request.body.read
-	halt 404 if request_payload[0]['key'].nil?
-	error 404 unless valid_key?(request_payload[0]['key'].to_s)
-	therapist = Therapist.find_by_name(request_payload[1]['name'])
-	if therapist.destroy
-		'successfully deleted!'.to_json
-	else
-		'failed to deleted!'.to_json
-	end
+	request_payload = parse_json(request)
+	delete_therapist(request_payload[1]['name'])
 end
 
 not_found do
@@ -62,5 +44,39 @@ helpers do
 	def valid_key?(key)
 		return false if key.nil?
 		ApiUser.new.validate_key(key.to_s)
+	end
+
+	def parse_json(params)
+		params.body.rewind
+    	request_payload = JSON.parse params.body.read
+		halt 404 if request_payload[0]['key'].to_s.nil?
+		error 404 unless valid_key?(request_payload[0]['key'].to_s)
+		request_payload
+	end
+
+	def get_therapist_postal(postal_code, distance, units)
+		content_type :json
+		Therapist.new.find_therapists(
+			postal_code.to_s, 
+			distance.to_s, 
+			units.to_s).refine.to_json
+	end
+
+	def create_therapist(therapist_data)
+		therapist = Therapist.new(therapist_data)
+		if therapist.save
+			'successfully created!'.to_json
+		else
+			'failed to create!'.to_json
+		end
+	end
+
+	def delete_therapist(therapist_name)
+		therapist = Therapist.find_by_name(therapist_name)
+		if therapist.destroy
+			'successfully deleted!'.to_json
+		else
+			'failed to deleted!'.to_json
+		end
 	end
 end
