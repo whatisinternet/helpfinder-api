@@ -2,6 +2,13 @@ require 'digest'
 require 'digest/sha2'
 
 class ApiUser < ActiveRecord::Base
+	validates :app_name, uniqueness: true
+	validates :app_name, presence: true
+	validates :app_name, length: { minimum: 4 }
+	validates :key, uniqueness: true
+	validates :key, presence: true
+	validates :expires, presence: true
+
 	def validate_key(key)
 		return false if key.nil?
 		user = get_user(key)

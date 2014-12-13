@@ -4,6 +4,22 @@ Geocoder::Railtie.insert
 
 class Therapist < ActiveRecord::Base
 	extend Geocoder::Model::ActiveRecord
+	
+	validates :name, presence: true
+	validates :website, presence: true
+	validates :postal_code, presence: true
+	validates :location, presence: true
+
+	validates :name, length: { minimum: 4 }
+	validates :postal_code, length: { minimum: 4 }
+	validates :location, length: { minimum: 4 }
+	validates :website, length: { minimum: 4 }
+	validates :email, length: { minimum: 4 }
+	validates :phone_number, length: { minimum: 4 }
+	validates :fax_number, length: { minimum: 4 }
+	
+	validates :email, format: { with: /\A^.+@.+$\z/}
+
 	geocoded_by :location
 	after_validation :geocode  
 
