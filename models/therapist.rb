@@ -36,12 +36,7 @@ class Therapist < ActiveRecord::Base
 	def find_therapists_latlong(latitude, longitude, distance, units)
 		return [] if latitude.nil? || longitude.nil?
 		location = [latitude, longitude]
-		if units.downcase.to_s == 'km'
-			valid_therapists = Therapist.near(location, distance.to_i, :units => :km)
-		else
-			valid_therapists = Therapist.near(location, distance.to_i, :units => :mi)
-		end
-		
+		find_therapists(location, distance, units)
 	end
 
 	def find_by_name(name)
