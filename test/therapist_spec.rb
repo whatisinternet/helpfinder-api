@@ -14,10 +14,36 @@ describe "Therapist" do
 		asserted_data.must_be_instance_of Array
 	end
 
+	it "should be empty when the latitude and longitude are empty" do
+		asserted_data = Therapist.new.find_therapists_latlong(nil, nil, 0,'km')
+		asserted_data.must_be_empty
+		asserted_data.must_be_instance_of Array
+	end
+
 	it "should return a therapist when searching by name" do
 		therapist = Therapist.new.find_by_name('Test_Therapist')
 		therapist.wont_be_nil
 		therapist.must_be_instance_of Therapist::ActiveRecord_Relation
+	end
+
+	it "should return local therapists for km by latitude and longitude" do
+		check_therapists = Therapist.new.find_therapists_latlong(34.1030032, -118.4104684, 1000,'km').refine.to_json
+		check_therapists.must_include 'name'
+		check_therapists.must_include 'location'
+		check_therapists.must_include 'website'
+		check_therapists.must_include 'phone_number'
+		check_therapists.must_include 'latitude'
+		check_therapists.must_include 'longitude'
+	end
+
+		it "should return local therapists for mi by latitude and longitude" do
+		check_therapists = Therapist.new.find_therapists_latlong(34.1030032, -118.4104684, 1000,'mi').refine.to_json
+		check_therapists.must_include 'name'
+		check_therapists.must_include 'location'
+		check_therapists.must_include 'website'
+		check_therapists.must_include 'phone_number'
+		check_therapists.must_include 'latitude'
+		check_therapists.must_include 'longitude'
 	end
 
 	it "should return local therapists for km" do
