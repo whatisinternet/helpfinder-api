@@ -23,6 +23,26 @@ describe "Help Finder" do
 		last_response.body.must_include therapists.to_json
 	end
 
+	it "should return a json package for local therapists" do
+		get 'api/1/find_help/Beverly%20Hills/20/km'
+		last_response.body.must_include 'name'
+		last_response.body.must_include 'location'
+		last_response.body.must_include 'website'
+		last_response.body.must_include 'phone_number'
+		last_response.body.must_include 'latitude'
+		last_response.body.must_include 'longitude'
+	end
+
+	it "should return a json package for local therapists (latitude longitude)" do
+		get 'api/1/find_help_latlong/34.1030032/-118.4104684/1000/km'
+		last_response.body.must_include 'name'
+		last_response.body.must_include 'location'
+		last_response.body.must_include 'website'
+		last_response.body.must_include 'phone_number'
+		last_response.body.must_include 'latitude'
+		last_response.body.must_include 'longitude'
+	end
+
 	it "should return json" do
 		get 'api/1/find_help/test/0/km'
 		last_response.headers['Content-Type'].must_equal 'application/json'

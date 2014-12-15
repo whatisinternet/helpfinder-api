@@ -24,6 +24,15 @@ module ApiHelpers
 				units.to_s).refine.to_json
 		end
 
+		def get_therapist_latlong(latitude, longitude, distance, units)
+			content_type :json
+			Therapist.new.find_therapists_latlong(
+				latitude.to_s, 
+				longitude.to_s, 
+				distance.to_s, 
+				units.to_s).refine.to_json
+		end
+
 		def create_therapist(therapist_data)
 			therapist = Therapist.new(therapist_data)
 			if therapist.save
