@@ -39,7 +39,7 @@ class HelpFinder < Sinatra::Base
 
 	not_found do
 	  status 404
-	  'I can\'t let you do that dave'.to_json
+	  'Computer says no.'.to_json
 	end
 
 end

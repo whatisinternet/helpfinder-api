@@ -14,7 +14,7 @@ describe "Help Finder" do
 
 	it "should return fail if nothing given" do
 		get 'api/1/find_help/'
-		'I can\'t let you do that dave'.to_json.must_equal last_response.body
+		'Computer says no.'.to_json.must_equal last_response.body
 	end
 
 	it "should return a json package for local therapists" do
@@ -57,7 +57,7 @@ describe "Help Finder" do
 	it "should not create a new therapist" do
 		therapists = [{key: 'fail_key'}, {name: "Test", location: "123 Fake St. NY NY 90210", postal_code: "90210", phone_number: "555-555-5555", fax_number: "555-555-5555", email: "test@therapist.com", website: "api.helpfinder.com", latitude: 34.1030032, longitude: -118.4104684}].to_json
 		post('/api/1/therapist/create', therapists ,{ "CONTENT_TYPE" => "application/json" })
-		last_response.body.must_equal 'I can\'t let you do that dave'.to_json
+		last_response.body.must_equal 'Computer says no.'.to_json
 	end
 
 	it "should delete a therapist" do
@@ -81,7 +81,7 @@ describe "Help Finder" do
 	it "should not delete a therapist" do
 		therapists = [{key: 'fail_key'}, {name: "Test", location: "123 Fake St. NY NY 90210", postal_code: "90210", phone_number: "555-555-5555", fax_number: "555-555-5555", email: "test@therapist.com", website: "api.helpfinder.com", latitude: 34.1030032, longitude: -118.4104684}].to_json
 		post('/api/1/therapist/create', therapists ,{ "CONTENT_TYPE" => "application/json" })
-		last_response.body.must_equal 'I can\'t let you do that dave'.to_json
+		last_response.body.must_equal 'Computer says no.'.to_json
 	end
 
 end
