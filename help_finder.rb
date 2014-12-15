@@ -3,7 +3,7 @@ require 'sinatra'
 require "sinatra/base"
 require 'sinatra/activerecord'
 require './config/environments'
-require "./api_helpers.rb"
+require "./helpers/api_helpers.rb"
 register Sinatra::ActiveRecordExtension
 
 class HelpFinder < Sinatra::Base
