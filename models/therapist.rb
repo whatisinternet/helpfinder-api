@@ -23,12 +23,12 @@ class Therapist < ActiveRecord::Base
 	geocoded_by :location
 	after_validation :geocode  
 
-	def find_therapists(postal_code, distance, units)
-		return [] if postal_code.nil?
+	def find_therapists(location, distance, units)
+		return [] if location.nil?
 		if units.downcase.to_s == 'km'
-			valid_therapists = Therapist.near(postal_code, distance.to_i, :units => :km)
+			valid_therapists = Therapist.near(location, distance.to_i, :units => :km)
 		else
-			valid_therapists = Therapist.near(postal_code, distance.to_i, :units => :mi)
+			valid_therapists = Therapist.near(location, distance.to_i, :units => :mi)
 		end
 		
 	end
