@@ -9,6 +9,18 @@ register Sinatra::ActiveRecordExtension
 class HelpFinder < Sinatra::Base
 	helpers ApiHelpers
 
+	options '/*' do
+	    headers['Access-Control-Allow-Origin'] = "*"
+	    headers['Access-Control-Allow-Methods'] = "GET, POST, PUT, DELETE, OPTIONS"
+	    headers['Access-Control-Allow-Headers'] ="accept, authorization, origin"
+	end
+
+	before do
+    	headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS'
+        headers['Access-Control-Allow-Origin'] = '*'
+    	headers['Access-Control-Allow-Headers'] = 'accept, authorization, origin'
+	end
+
 	get '/api/1/find_help/:postal_code/:distance/:units' do
 		return 'fail' if params[:postal_code].nil?
 		get_therapist_postal(params[:postal_code].to_s, 
